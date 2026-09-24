@@ -16,6 +16,7 @@
 import gc
 import os
 import shutil
+import tempfile
 import unittest
 from collections import OrderedDict
 from pathlib import Path
@@ -29,6 +30,7 @@ from diffusers import (
     AutoPipelineForText2Image,
     ControlNetModel,
     DiffusionPipeline,
+    Kandinsky5T2IPipeline,
 )
 from diffusers.pipelines.auto_pipeline import (
     AUTO_IMAGE2IMAGE_PIPELINES_MAPPING,
@@ -50,6 +52,16 @@ PRETRAINED_MODEL_REPO_MAPPING = OrderedDict(
 
 
 class AutoPipelineFastTest(unittest.TestCase):
+    def test_from_pretrained_kandinsky5_text2img(self):
+        components = dict.fromkeys(
+            ("transformer", "vae", "text_encoder", "tokenizer", "text_encoder_2", "tokenizer_2", "scheduler")
+        )
+        with tempfile.TemporaryDirectory() as model_dir:
+            Kandinsky5T2IPipeline(**components).save_pretrained(model_dir)
+            pipe = AutoPipelineForText2Image.from_pretrained(model_dir, local_files_only=True, **components)
+
+        self.assertIsInstance(pipe, Kandinsky5T2IPipeline)
+
     @property
     def dummy_image_encoder(self):
         torch.manual_seed(0)
