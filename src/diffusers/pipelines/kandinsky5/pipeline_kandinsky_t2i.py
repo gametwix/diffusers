@@ -813,4 +813,4 @@ class Kandinsky5T2IPipeline(DiffusionPipeline, KandinskyLoraLoaderMixin):
         if not return_dict:
             return (image,)
 
-        return KandinskyImagePipelineOutput(image=image)
+        return KandinskyImagePipelineOutput(images=image)

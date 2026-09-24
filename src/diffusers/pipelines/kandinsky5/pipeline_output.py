@@ -26,10 +26,10 @@ class KandinskyImagePipelineOutput(BaseOutput):
     Output class for kandinsky image pipelines.
 
     Args:
-        image (`torch.Tensor`, `np.ndarray`, or list[PIL.Image.Image]):
+        images (`torch.Tensor`, `np.ndarray`, or list[PIL.Image.Image]):
             List of image outputs - It can be a nested list of length `batch_size,` with each sub-list containing
             denoised PIL image. It can also be a NumPy array or Torch tensor of shape `(batch_size, channels, height,
             width)`.
     """
 
-    image: torch.Tensor
+    images: torch.Tensor

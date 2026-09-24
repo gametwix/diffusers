@@ -188,7 +188,7 @@ class Kandinsky5I2IPipelineFastTests(PipelineTesterMixin, unittest.TestCase):
 
         inputs = self.get_dummy_inputs(device)
         output = pipe(**inputs)
-        image = output.image
+        image = output.images
 
         self.assertEqual(image.shape, (1, 3, 64, 64))
 
